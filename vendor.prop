@@ -11,6 +11,7 @@ ro.vendor.df.effect.conflict=1
 persist.vendor.df.extcolor.proc=0
 
 # Display
+ro.vendor.display.paneltype=2
 vendor.display.defer_fps_frame_count=2
 
 # Haptic
