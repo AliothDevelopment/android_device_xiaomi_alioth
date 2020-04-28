@@ -10,6 +10,9 @@ ro.vendor.display.paneltype=2
 ro.vendor.df.effect.conflict=1
 persist.vendor.df.extcolor.proc=0
 
+# Display
+vendor.display.defer_fps_frame_count=2
+
 # Haptic
 sys.haptic.down.normal=2
 sys.haptic.down.strong=5
