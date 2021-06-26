@@ -97,10 +97,9 @@ public class DFeatureSettingsFragment extends PreferenceFragment implements
              Settings.System.putFloat(getContext().getContentResolver(),
                         Settings.System.MIN_REFRESH_RATE,
                         (float) Integer.parseInt((String) newValue));
+                        updateValuesAndSummaries();
         
         }
-        
-        updateValuesAndSummaries();
         return true;
     }
    

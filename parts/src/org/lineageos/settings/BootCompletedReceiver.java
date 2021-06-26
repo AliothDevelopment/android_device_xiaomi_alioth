@@ -37,6 +37,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private ITouchFeature mTouchFeature;
     @Override
     public void onReceive(final Context context, Intent intent) {
+
      try {
             // We need to reset this setting to trigger an update in display service
             final float refreshRate = Settings.System.getFloat(context.getContentResolver(),
@@ -63,8 +64,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (DEBUG) Log.d(TAG, "Received boot completed intent");
         DozeUtils.checkDozeService(context);
         ThermalUtils.startService(context);
-
-
 
     }
 }
