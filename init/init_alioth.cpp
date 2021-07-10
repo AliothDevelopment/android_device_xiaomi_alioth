@@ -55,8 +55,8 @@ char const *heapminfree;
 char const *heapmaxfree;
 char const *heaptargetutilization;
 bool changed = false;
-char const *ro_build_fingerprint = "google/redfin/redfin:11/RQ3A.210605.005/7349499:user/release-keys"; 
-char const *ro_build_description = "redfin-user 11 RQ3A.210605.005 7349499 release-keys"; 
+char const *ro_build_fingerprint = "google/redfin/redfin:11/RQ3A.210705.001/7380771:user/release-keys"; 
+char const *ro_build_description = "redfin-user 11 RQ3A.210705.001 7380771 release-keys"; 
 char const *ro_stock_fingerprint = "POCO/alioth_global/alioth:11/RKQ1.200826.002/V12.0.2.0.RKHMIXM:user/release-keys";
 char const *ro_stock_description = "alioth-user 11 RKQ1.200826.002 V12.0.2.0.RKHMIXM release-keys"; 
 
