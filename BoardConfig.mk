@@ -11,7 +11,7 @@ DEVICE_PATH := device/xiaomi/alioth
 -include vendor/xiaomi/alioth/BoardConfigVendor.mk
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := alioth
+TARGET_OTA_ASSERT_DEVICE := alioth,aliothin
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth/include
