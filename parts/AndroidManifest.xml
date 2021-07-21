@@ -47,25 +47,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        
-          <service android:name=".doze.DozeService"
-                 android:permission="XiaomiDozeService">
-        </service>
-        
-          <activity
-            android:name=".doze.DozeSettingsActivity"
-            android:label="@string/ambient_display_title"
-            android:theme="@style/Theme.Main">
-            <intent-filter>
-                 <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                       android:value="com.android.settings.category.ia.display" />
-             <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/ambient_display_summary" />
-        </activity>
-        
+    
         <activity
             android:name=".dfeature.DFeatureSettingsActivity"
             android:label="@string/feature_display_title"

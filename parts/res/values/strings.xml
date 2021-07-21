@@ -16,9 +16,6 @@
 -->
 <resources>
     
-    <!--Ambient-->
-    <string name="ambient_display_summary">Always On Display, Ambient Display ..</string>
-   
     <!-- DC Dimming settings -->
     <string name="dc_dimming_enable_title">Anti-Flicker Mode</string>
     <string name="dc_dimming_enable_summary">DC Dimming reduces eye strain in low light conditions</string>

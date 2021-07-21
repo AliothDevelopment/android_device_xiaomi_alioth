@@ -24,7 +24,6 @@ import android.util.Log;
 import android.provider.Settings;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import org.lineageos.settings.doze.DozeUtils;
 import vendor.xiaomi.hardware.touchfeature.V1_0.ITouchFeature;
 import org.lineageos.settings.thermal.ThermalUtils;
 
@@ -62,8 +61,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
 
         if (DEBUG) Log.d(TAG, "Received boot completed intent");
-        DozeUtils.checkDozeService(context);
         ThermalUtils.startService(context);
-
     }
 }
