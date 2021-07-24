@@ -1,12 +1,3 @@
-<!--
-    Input:
-        manifest.xml
-        manifest_ss.xml
-        fod.xml
-        manifest.xml
-        manifest.xml
-        manifest.xml
--->
 <manifest version="2.0" type="device" target-level="4">
     <!-- fpc fingerprint HAL Service  -->
     <hal format="hidl"> 
