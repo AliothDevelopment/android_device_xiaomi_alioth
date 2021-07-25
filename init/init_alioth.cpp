@@ -127,6 +127,7 @@ void load_redmi_k40() {
     property_override("ro.product.vendor.manufacturer", "Xiaomi");
     property_override("ro.product.vendor.brand", "Redmi");
     property_override("ro.product.vendor.model", "M2012K11AC");
+    property_override("ro.boot.product.hardware.sku", "nfc");
     load_fprop_redfin();
 }
 void load_poco_f3() {
@@ -141,6 +142,7 @@ void load_poco_f3() {
     property_override("ro.product.vendor.manufacturer", "Xiaomi");
     property_override("ro.product.vendor.brand", "POCO");
     property_override("ro.product.vendor.model", "M2012K11AG");
+    property_override("ro.boot.product.hardware.sku", "nfc");
     load_fprop_redfin();
 }
 void load_mi11x() {
