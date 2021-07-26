@@ -293,7 +293,6 @@
         <item>257</item>
         <item>280</item>
         <item>295</item>
-        <item>369</item>
         <item>400</item>
         <item>416.7</item>
         <item>433.3</item>
@@ -329,6 +328,7 @@
         <item>740</item>
         <item>745</item>
         <item>750</item>
+        <item>753</item>
         <item>755</item>
         <item>760</item>
         <item>765</item>
@@ -338,16 +338,16 @@
         <item>816.7</item>
         <item>833.3</item>
         <item>850</item>
-        <item>866.7</item>
-        <item>883.3</item>
-        <item>900</item>
-        <item>914.3</item>
-        <item>928.6</item>
-        <item>942.9</item>
-        <item>957.1</item>
-        <item>971.4</item>
-        <item>985.7</item>
-        <item>1000</item>
+        <item>876.7</item>
+        <item>893.3</item>
+        <item>920</item>
+        <item>950.3</item>
+        <item>990.6</item>
+        <item>1020.9</item>
+        <item>1050.1</item>
+        <item>1150.4</item>
+        <item>1200.7</item>
+        <item>1300</item>
     </array>
     
     <!-- Array of hysteresis constraint values for brightening, represented as tenths of a
