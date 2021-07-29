@@ -73,8 +73,6 @@ public class DFeatureSettingsFragment extends PreferenceFragment implements
         mD2TWPreference = (SwitchPreference) findPreference(D2TW_ENABLE_KEY);
         mD2TWPreference.setEnabled(true);
         mD2TWPreference.setOnPreferenceChangeListener(this);
-        enableD2TW(1);
-        
     }
     
     @Override
