@@ -28,8 +28,12 @@ import android.util.Log;
 public class DozeService extends Service {
     private static final String TAG = "DozeService";
     private static final boolean DEBUG = false;
+    
+    boolean alwaysOnEnabled;
 
+    private PocketSensor mPocketSensor;
     private PickupSensor mPickupSensor;
+    
     private BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -37,6 +41,8 @@ public class DozeService extends Service {
                 onDisplayOn();
             } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 onDisplayOff();
+            } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
+                onLockscreenGone();
             }
         }
     };
@@ -44,12 +50,24 @@ public class DozeService extends Service {
     @Override
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
-        mPickupSensor = new PickupSensor(this);
+        
+        alwaysOnEnabled= DozeUtils.isAlwaysOnEnabled(this);
+
+        mPocketSensor = new PocketSensor(this);
+        if(!alwaysOnEnabled) mPickupSensor = new PickupSensor(this);
 
         IntentFilter screenStateFilter = new IntentFilter();
         screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        screenStateFilter.addAction(Intent.ACTION_USER_PRESENT);
         registerReceiver(mScreenStateReceiver, screenStateFilter);
+    }
+    
+    private void onLockscreenGone(){
+        if (DEBUG) Log.d(TAG, "Lockscreen Gone");
+        if (DozeUtils.isPocketGestureEnabled(this)) {
+            mPocketSensor.disable_On();
+        }
     }
 
     @Override
@@ -63,7 +81,8 @@ public class DozeService extends Service {
         if (DEBUG) Log.d(TAG, "Destroying service");
         super.onDestroy();
         this.unregisterReceiver(mScreenStateReceiver);
-        mPickupSensor.disable();
+        mPocketSensor.disable();
+        if(!alwaysOnEnabled)mPickupSensor.disable();
     }
 
     @Override
@@ -74,14 +93,20 @@ public class DozeService extends Service {
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
         if (DozeUtils.isPickUpEnabled(this)) {
-            mPickupSensor.disable();
+            if(!alwaysOnEnabled) mPickupSensor.disable();
+        }
+        if (DozeUtils.isPocketGestureEnabled(this)) {
+            mPocketSensor.enable();
         }
     }
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
         if (DozeUtils.isPickUpEnabled(this)) {
-            mPickupSensor.enable();
+            if(!alwaysOnEnabled) mPickupSensor.enable();
+        }
+        if (DozeUtils.isPocketGestureEnabled(this)) {
+            mPocketSensor.disable();
         }
     }
 }
