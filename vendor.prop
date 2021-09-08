@@ -6,6 +6,9 @@ persist.sys.miui.camera.boost.opt=true
 persist.sys.miui.camera.boost.task=4
 persist.sys.miui_sptm.enable=true
 persist.sys.miui_sptm.enable_pl_type=1
+ro.vendor.display.paneltype=2
+ro.vendor.df.effect.conflict=1
+persist.vendor.df.extcolor.proc=0
 
 # Haptic
 sys.haptic.down.normal=2
