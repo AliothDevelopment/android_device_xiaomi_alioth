@@ -20,7 +20,7 @@ cc_library_static {
     shared_libs: ["libbase"],
     srcs: ["init_alioth.cpp"],
     include_dirs: [
-        "system/core/base/include",
+        "system/libbase/include",
         "system/core/init"
     ]
 }
