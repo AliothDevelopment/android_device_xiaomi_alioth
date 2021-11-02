@@ -60,8 +60,6 @@
              <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/feature_display_summary" />
-              <meta-data android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_device_features"/>
         </activity>
         
          <activity
@@ -77,8 +75,6 @@
             <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/thermal_summary" />
-            <meta-data android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_thermal"/>
             <meta-data
                 android:name="com.android.settings.order"
                 android:value="1" />
