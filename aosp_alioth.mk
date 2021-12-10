@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 The AospExtended Project
+# Copyright (C) 2021 The Descendant Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -7,8 +7,8 @@
 # Inherit from alioth device
 $(call inherit-product, device/xiaomi/alioth/device.mk)
 
-# Inherit some common AospExtended stuff.
-$(call inherit-product, vendor/aosp/common.mk)
+# Inherit some common Descendant stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := aosp_alioth

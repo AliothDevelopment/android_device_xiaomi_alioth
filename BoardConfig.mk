@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 The AospExtended Project
+# Copyright (C) 2021 The Descendant Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
