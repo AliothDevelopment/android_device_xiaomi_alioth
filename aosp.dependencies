@@ -1,8 +1,14 @@
 [
-    { 
+    {
         "remote"       : "gitlab",
         "repository"   : "vendorosass/vendor_xiaomi_alioth",
         "target_path"  : "vendor/xiaomi/alioth",
-        "branch"       : "12.5.1"
+        "branch"       : "twelve"
+    },
+    {
+        "remote"       : "github",
+        "repository"   : "AliothDevelopment/device_xiaomi_sm8250-common",
+        "target_path"  : "device/xiaomi/sm8250-common",
+        "branch"       : "twelve"
     }
 ]
