@@ -19,13 +19,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<ListPreference
-    android:key="pref_min_refresh_rate"
-    android:icon="@drawable/ic_refreshrate"
-    android:title="@string/device_min_refresh_rate"
-    android:entries="@array/device_refresh_rates"
-    android:entryValues="@array/device_refresh_rates_val"/>
-
 <SwitchPreference
     android:defaultValue="true"
     android:key="dt2w_enable"

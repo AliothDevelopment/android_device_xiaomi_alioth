@@ -19,7 +19,6 @@ package org.lineageos.settings.thermal;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.SystemProperties;
 import android.os.UserHandle;
 
 import androidx.preference.PreferenceManager;
@@ -32,29 +31,22 @@ public final class ThermalUtils {
 
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_BENCHMARK = 1;
-    protected static final int STATE_BROWSER = 2;
-    protected static final int STATE_CAMERA = 3;
-    protected static final int STATE_DIALER = 4;
-    protected static final int STATE_GAMING = 5;
-    protected static final int STATE_STREAMING = 6;
+    protected static final int STATE_CAMERA = 2;
+    protected static final int STATE_DIALER = 3;
+    protected static final int STATE_GAMING = 4;
 
     private static final String THERMAL_STATE_DEFAULT = "0";
-    private static final String THERMAL_STATE_BENCHMARK = "10";
-    private static final String THERMAL_STATE_BROWSER = "11";
-    private static final String THERMAL_STATE_CAMERA = "12";
-    private static final String THERMAL_STATE_DIALER = "8";
-    private static final String THERMAL_STATE_GAMING = "13";
-    private static final String THERMAL_STATE_STREAMING = "14";
+    private static final String THERMAL_STATE_BENCHMARK = "40";
+    private static final String THERMAL_STATE_CAMERA = "47";
+    private static final String THERMAL_STATE_DIALER = "38";
+    private static final String THERMAL_STATE_GAMING = "46";
 
     private static final String THERMAL_BENCHMARK = "thermal.benchmark=";
-    private static final String THERMAL_BROWSER = "thermal.browser=";
     private static final String THERMAL_CAMERA = "thermal.camera=";
     private static final String THERMAL_DIALER = "thermal.dialer=";
     private static final String THERMAL_GAMING = "thermal.gaming=";
-    private static final String THERMAL_STREAMING = "thermal.streaming=";
 
     private static final String THERMAL_SCONFIG = "/sys/class/thermal/thermal_message/sconfig";
-    private static final String PROP_GAME_MODE = "sys.performance.level";
 
     private SharedPreferences mSharedPrefs;
 
@@ -75,8 +67,8 @@ public final class ThermalUtils {
         String value = mSharedPrefs.getString(THERMAL_CONTROL, null);
 
         if (value == null || value.isEmpty()) {
-            value = THERMAL_BENCHMARK + ":" + THERMAL_BROWSER + ":" + THERMAL_CAMERA + ":" +
-                    THERMAL_DIALER + ":" + THERMAL_GAMING + ":" + THERMAL_STREAMING;
+            value = THERMAL_BENCHMARK + ":" + THERMAL_CAMERA + ":" +
+                    THERMAL_DIALER + ":" + THERMAL_GAMING;
             writeValue(value);
         }
         return value;
@@ -92,25 +84,18 @@ public final class ThermalUtils {
             case STATE_BENCHMARK:
                 modes[0] = modes[0] + packageName + ",";
                 break;
-            case STATE_BROWSER:
+            case STATE_CAMERA:
                 modes[1] = modes[1] + packageName + ",";
                 break;
-            case STATE_CAMERA:
+            case STATE_DIALER:
                 modes[2] = modes[2] + packageName + ",";
                 break;
-            case STATE_DIALER:
-                modes[3] = modes[3] + packageName + ",";
-                break;
             case STATE_GAMING:
-                modes[4] = modes[4] + packageName + ",";
-                break;
-            case STATE_STREAMING:
-                modes[5] = modes[5] + packageName + ",";
+                modes[3] = modes[3] + packageName + ",";
                 break;
         }
 
-        finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3] + ":" +
-                modes[4] + ":" + modes[5];
+        finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3];
 
         writeValue(finalString);
     }
@@ -122,15 +107,11 @@ public final class ThermalUtils {
         if (modes[0].contains(packageName + ",")) {
             state = STATE_BENCHMARK;
         } else if (modes[1].contains(packageName + ",")) {
-            state = STATE_BROWSER;
-        } else if (modes[2].contains(packageName + ",")) {
             state = STATE_CAMERA;
-        } else if (modes[3].contains(packageName + ",")) {
+        } else if (modes[2].contains(packageName + ",")) {
             state = STATE_DIALER;
-        } else if (modes[4].contains(packageName + ",")) {
+        } else if (modes[3].contains(packageName + ",")) {
             state = STATE_GAMING;
-        } else if (modes[5].contains(packageName + ",")) {
-            state = STATE_STREAMING;
         }
 
         return state;
@@ -144,7 +125,6 @@ public final class ThermalUtils {
         String value = getValue();
         String modes[];
         String state = THERMAL_STATE_DEFAULT;
-        boolean isInGameMode = SystemProperties.getInt(PROP_GAME_MODE, -1) > 0;
 
         if (value != null) {
             modes = value.split(":");
@@ -152,19 +132,13 @@ public final class ThermalUtils {
             if (modes[0].contains(packageName + ",")) {
                 state = THERMAL_STATE_BENCHMARK;
             } else if (modes[1].contains(packageName + ",")) {
-                state = THERMAL_STATE_BROWSER;
-            } else if (modes[2].contains(packageName + ",")) {
                 state = THERMAL_STATE_CAMERA;
-            } else if (modes[3].contains(packageName + ",")) {
+            } else if (modes[2].contains(packageName + ",")) {
                 state = THERMAL_STATE_DIALER;
-            } else if (modes[4].contains(packageName + ",")) {
+            } else if (modes[3].contains(packageName + ",")) {
                 state = THERMAL_STATE_GAMING;
-            } else if (modes[5].contains(packageName + ",")) {
-                state = THERMAL_STATE_STREAMING;
             }
         }
-        if (!isInGameMode) {
-            FileUtils.writeLine(THERMAL_SCONFIG, state);
-        }
+        FileUtils.writeLine(THERMAL_SCONFIG, state);
     }
 }

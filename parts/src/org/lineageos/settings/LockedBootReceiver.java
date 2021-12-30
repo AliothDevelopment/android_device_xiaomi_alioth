@@ -21,18 +21,29 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.content.SharedPreferences;
 
-import org.lineageos.settings.thermal.ThermalUtils;
 
-public class BootCompletedReceiver extends BroadcastReceiver {
+import vendor.xiaomi.hardware.touchfeature.V1_0.ITouchFeature;
+
+public class LockedBootReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
-    private static final String TAG = "XiaomiParts_Boot_Completed";
+    private static final String TAG = "XiaomiParts_Locked";
+    public static final String SHAREDD2TW = "sharadeD2TW";
+    private ITouchFeature mTouchFeature;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (DEBUG)
-            Log.d(TAG, "Received boot completed intent");
-        ThermalUtils.startService(context);
+            Log.d(TAG, "Locked boot completed intent");
+        //Restore dt2w on reboot
+        SharedPreferences prefs = context.getSharedPreferences(SHAREDD2TW, Context.MODE_PRIVATE);
+        try {
+            mTouchFeature = ITouchFeature.getService();
+            mTouchFeature.setTouchMode(14,prefs.getInt(SHAREDD2TW, 1));
+        } catch (Exception e) {
+            // Do nothing
+        }
     }
 
 }

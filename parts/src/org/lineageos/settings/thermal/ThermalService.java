@@ -18,6 +18,8 @@ package org.lineageos.settings.thermal;
 
 import android.app.ActivityManager;
 import android.app.ActivityTaskManager;
+import android.app.ActivityTaskManager.RootTaskInfo;
+import android.app.IActivityTaskManager;
 import android.app.TaskStackListener;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -29,21 +31,19 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
-import java.util.List;
-
 public class ThermalService extends Service {
 
     private static final String TAG = "ThermalService";
     private static final boolean DEBUG = false;
 
-    private Context context;
     private String mPreviousApp;
     private ThermalUtils mThermalUtils;
+
+    private IActivityTaskManager mActivityTaskManager;
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ThermalService.this.context=context;
             mPreviousApp = "";
             mThermalUtils.setDefaultThermalProfile();
         }
@@ -53,7 +53,8 @@ public class ThermalService extends Service {
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
         try {
-            ActivityTaskManager.getService().registerTaskStackListener(mTaskListener);
+            mActivityTaskManager = ActivityTaskManager.getService();
+            mActivityTaskManager.registerTaskStackListener(mTaskListener);
         } catch (RemoteException e) {
             // Do nothing
         }
@@ -76,22 +77,25 @@ public class ThermalService extends Service {
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
         this.registerReceiver(mIntentReceiver, filter);
     }
 
     private final TaskStackListener mTaskListener = new TaskStackListener() {
         @Override
         public void onTaskStackChanged() {
-                ActivityManager manager = context.getSystemService(ActivityManager.class);
-                List<ActivityManager.RunningTaskInfo> runningTasks = manager.getRunningTasks(1);
-                if (runningTasks != null && runningTasks.size() > 0) {                    
-                ComponentName topActivity = runningTasks.get(0).topActivity;
-                String foregroundApp = topActivity.getPackageName();
-                    if (!foregroundApp.equals(mPreviousApp)) {
-                        mThermalUtils.setThermalProfile(foregroundApp);
-                        mPreviousApp = foregroundApp;
-                    }
+            try {
+                final RootTaskInfo info = mActivityTaskManager.getFocusedRootTaskInfo();
+                if (info == null || info.topActivity == null) {
+                    return;
                 }
+
+                String foregroundApp = info.topActivity.getPackageName();
+                if (!foregroundApp.equals(mPreviousApp)) {
+                    mThermalUtils.setThermalProfile(foregroundApp);
+                    mPreviousApp = foregroundApp;
+                }
+            } catch (Exception e) {}
         }
     };
 }
