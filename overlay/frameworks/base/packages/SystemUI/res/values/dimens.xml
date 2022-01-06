@@ -38,4 +38,7 @@
     
 <!--     <dimen name="qqs_padding_top">20dp</dimen> -->
 
+    <!-- Power button location -->
+    <dimen name="physical_power_button_center_screen_location_y">1060px</dimen>
+    <dimen name="physical_fingerprint_sensor_center_screen_location_y">1060px</dimen>
 </resources>
