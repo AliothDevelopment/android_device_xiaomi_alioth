@@ -60,7 +60,6 @@ public class DFeatureSettingsFragment extends PreferenceFragment implements
             // Do nothing
         }
         mD2TWPreference = (SwitchPreference) findPreference(D2TW_ENABLE_KEY);
-        mD2TWPreference.setEnabled(true);
         mD2TWPreference.setOnPreferenceChangeListener(this);
     }
     
@@ -96,7 +95,7 @@ public class DFeatureSettingsFragment extends PreferenceFragment implements
         if (mTouchFeature == null) return;
         try {
             mTouchFeature.setTouchMode(14,enable);
-            SharedPreferences preferences = getActivity().getSharedPreferences(SHAREDD2TW,Context.MODE_PRIVATE);
+            SharedPreferences preferences = getActivity().getApplicationContext().getSharedPreferences(SHAREDD2TW,Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
              editor.putInt(SHAREDD2TW, enable);
               editor.commit();
