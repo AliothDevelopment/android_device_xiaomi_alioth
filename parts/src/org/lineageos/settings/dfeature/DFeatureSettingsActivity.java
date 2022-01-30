@@ -20,7 +20,10 @@ package org.lineageos.settings.dfeature;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class DFeatureSettingsActivity extends PreferenceActivity {
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+import com.android.settingslib.collapsingtoolbar.R;
+
+public class DFeatureSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String TAG_DFEATURE = "dfeature";
 
@@ -28,7 +31,7 @@ public class DFeatureSettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
+        getFragmentManager().beginTransaction().replace(R.id.content_frame,
                 new DFeatureSettingsFragment(), TAG_DFEATURE).commit();
     }
 }
