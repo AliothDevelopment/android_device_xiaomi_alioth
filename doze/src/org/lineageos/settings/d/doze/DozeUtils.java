@@ -51,6 +51,12 @@ public final class DozeUtils {
                 UserHandle.CURRENT);
     }
 
+    public static void startAodService(Context context) {
+        if (DEBUG) Log.d(TAG, "Starting Aod and ext rom parts handler service");
+        context.startServiceAsUser(new Intent(context, AodService.class),
+                UserHandle.CURRENT);
+    }
+
     protected static void stopService(Context context) {
         if (DEBUG) Log.d(TAG, "Stopping service");
         context.stopServiceAsUser(new Intent(context, DozeService.class),
@@ -58,7 +64,7 @@ public final class DozeUtils {
     }
 
     public static void checkDozeService(Context context) {
-        if (isDozeEnabled(context) &&  sensorsEnabled(context)) {
+        if ( ((isDozeEnabled(context) || isAlwaysOnEnabled(context)) && (sensorsEnabled(context))) ) {
             startService(context);
         }else{
             stopService(context);

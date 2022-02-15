@@ -54,6 +54,19 @@
             <action android:name="android.Intent.ACTION_USER_PRESENT" />
         </intent-filter> 
         </receiver>
+
+        <service
+            android:name=".doze.AodService"
+            android:permission="XiaomiDozeService">
+        </service>
+
+        <receiver android:name=".doze.AodService">
+        <intent-filter>
+            <action android:name="android.intent.action.SCREEN_ON" />
+            <action android:name="android.intent.action.DREAMING_STARTED" />
+            <action android:name="android.intent.action.SCREEN_OFF" />
+        </intent-filter>
+        </receiver>
         
         <receiver android:name=".doze.PhoneStateReceiver">
             <intent-filter>
