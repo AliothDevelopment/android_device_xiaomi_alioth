@@ -40,8 +40,6 @@ sys.haptic.tap.normal=3,2
 sys.haptic.trigger.drawer=2,0
 
 # Hardware
-ro.hardware.fp.sideCap=true
-ro.hardware.fp.vendor=fpc
 ro.hardware.keystore_desede=true
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
